@@ -1,0 +1,286 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F266699D15E056C900B08CAC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F266699C15E056C800B08CAC /* UIKit.framework */; };
+		F266699F15E056C900B08CAC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F266699E15E056C900B08CAC /* Foundation.framework */; };
+		F26669A115E056C900B08CAC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F26669A015E056C900B08CAC /* CoreGraphics.framework */; };
+		F26669A715E056C900B08CAC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F26669A515E056C900B08CAC /* InfoPlist.strings */; };
+		F26669A915E056C900B08CAC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F26669A815E056C900B08CAC /* main.m */; };
+		F26669AD15E056C900B08CAC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F26669AC15E056C900B08CAC /* AppDelegate.m */; };
+		F26669B015E056C900B08CAC /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F26669AE15E056C900B08CAC /* MainStoryboard.storyboard */; };
+		F26669B315E056C900B08CAC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F26669B215E056C900B08CAC /* ViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F266699815E056C800B08CAC /* APJTweet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APJTweet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F266699C15E056C800B08CAC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F266699E15E056C900B08CAC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F26669A015E056C900B08CAC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F26669A415E056C900B08CAC /* APJTweet-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "APJTweet-Info.plist"; sourceTree = "<group>"; };
+		F26669A615E056C900B08CAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F26669A815E056C900B08CAC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F26669AA15E056C900B08CAC /* APJTweet-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "APJTweet-Prefix.pch"; sourceTree = "<group>"; };
+		F26669AB15E056C900B08CAC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F26669AC15E056C900B08CAC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F26669AF15E056C900B08CAC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		F26669B115E056C900B08CAC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F26669B215E056C900B08CAC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F266699515E056C800B08CAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F266699D15E056C900B08CAC /* UIKit.framework in Frameworks */,
+				F266699F15E056C900B08CAC /* Foundation.framework in Frameworks */,
+				F26669A115E056C900B08CAC /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F266698D15E056C800B08CAC = {
+			isa = PBXGroup;
+			children = (
+				F26669A215E056C900B08CAC /* APJTweet */,
+				F266699B15E056C800B08CAC /* Frameworks */,
+				F266699915E056C800B08CAC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F266699915E056C800B08CAC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F266699815E056C800B08CAC /* APJTweet.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F266699B15E056C800B08CAC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F266699C15E056C800B08CAC /* UIKit.framework */,
+				F266699E15E056C900B08CAC /* Foundation.framework */,
+				F26669A015E056C900B08CAC /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F26669A215E056C900B08CAC /* APJTweet */ = {
+			isa = PBXGroup;
+			children = (
+				F26669AB15E056C900B08CAC /* AppDelegate.h */,
+				F26669AC15E056C900B08CAC /* AppDelegate.m */,
+				F26669AE15E056C900B08CAC /* MainStoryboard.storyboard */,
+				F26669B115E056C900B08CAC /* ViewController.h */,
+				F26669B215E056C900B08CAC /* ViewController.m */,
+				F26669A315E056C900B08CAC /* Supporting Files */,
+			);
+			path = APJTweet;
+			sourceTree = "<group>";
+		};
+		F26669A315E056C900B08CAC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F26669A415E056C900B08CAC /* APJTweet-Info.plist */,
+				F26669A515E056C900B08CAC /* InfoPlist.strings */,
+				F26669A815E056C900B08CAC /* main.m */,
+				F26669AA15E056C900B08CAC /* APJTweet-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F266699715E056C800B08CAC /* APJTweet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F26669B615E056C900B08CAC /* Build configuration list for PBXNativeTarget "APJTweet" */;
+			buildPhases = (
+				F266699415E056C800B08CAC /* Sources */,
+				F266699515E056C800B08CAC /* Frameworks */,
+				F266699615E056C800B08CAC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = APJTweet;
+			productName = APJTweet;
+			productReference = F266699815E056C800B08CAC /* APJTweet.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F266698F15E056C800B08CAC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Norimasa Nabeta";
+			};
+			buildConfigurationList = F266699215E056C800B08CAC /* Build configuration list for PBXProject "APJTweet" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F266698D15E056C800B08CAC;
+			productRefGroup = F266699915E056C800B08CAC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F266699715E056C800B08CAC /* APJTweet */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F266699615E056C800B08CAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F26669A715E056C900B08CAC /* InfoPlist.strings in Resources */,
+				F26669B015E056C900B08CAC /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F266699415E056C800B08CAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F26669A915E056C900B08CAC /* main.m in Sources */,
+				F26669AD15E056C900B08CAC /* AppDelegate.m in Sources */,
+				F26669B315E056C900B08CAC /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F26669A515E056C900B08CAC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F26669A615E056C900B08CAC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F26669AE15E056C900B08CAC /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F26669AF15E056C900B08CAC /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F26669B415E056C900B08CAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F26669B515E056C900B08CAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F26669B715E056C900B08CAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "APJTweet/APJTweet-Prefix.pch";
+				INFOPLIST_FILE = "APJTweet/APJTweet-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F26669B815E056C900B08CAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "APJTweet/APJTweet-Prefix.pch";
+				INFOPLIST_FILE = "APJTweet/APJTweet-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F266699215E056C800B08CAC /* Build configuration list for PBXProject "APJTweet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F26669B415E056C900B08CAC /* Debug */,
+				F26669B515E056C900B08CAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F26669B615E056C900B08CAC /* Build configuration list for PBXNativeTarget "APJTweet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F26669B715E056C900B08CAC /* Debug */,
+				F26669B815E056C900B08CAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F266698F15E056C800B08CAC /* Project object */;
+}
