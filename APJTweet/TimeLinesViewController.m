@@ -11,12 +11,17 @@
 
 @interface TimeLinesViewController ()
 - (void)fetchData;
+@property (strong, nonatomic) NSCache *usernameCache;
+@property (strong, nonatomic) NSCache *imageCache;
 @end
 
 @implementation TimeLinesViewController
 
 @synthesize account = _account;
 @synthesize timeline = _timeline;
+
+@synthesize imageCache = _imageCache;
+@synthesize usernameCache = _usernameCache;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -41,6 +46,10 @@
         [self.tableView addSubview:view];
         _refreshHeaderView = view;
         _refreshHeaderView.delegate = self;
+        _imageCache = [[NSCache alloc] init];
+        [_imageCache setName:@"TWTLImageCache"];
+        _usernameCache = [[NSCache alloc] init];
+        [_usernameCache setName:@"TWTLUsernameCache"];
     }
 
     // Uncomment the following line to preserve selection between presentations.
@@ -74,6 +83,8 @@
 - (void)fetchData
 {
     [_refreshHeaderView refreshLastUpdatedDate];
+    // https://dev.twitter.com/docs/api/1/get/statuses/home_timeline
+    // GET statues/home_timeline
     NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1/statuses/home_timeline.json"];
     TWRequest *request = [[TWRequest alloc] initWithURL:url
                                              parameters:nil
@@ -131,8 +142,37 @@
     // Configure the cell...
     id tweet = [self.timeline objectAtIndex:[indexPath row]];
     // NSLog(@"Tweet at index %d is %@", [indexPath row], tweet);
+
     cell.textLabel.text = [tweet objectForKey:@"text"];
     cell.detailTextLabel.text = [tweet valueForKeyPath:@"user.name"];
+
+    NSString* tweetscreenuser = [tweet valueForKeyPath:@"user.screen_name"];
+    // NSString* tweetuser = [tweet valueForKeyPath:@"user.name"];
+    // NSLog(@"user:%@ screen:%@", tweetuser, tweetscreenuser);
+    UIImage *image = [_imageCache objectForKey:tweetscreenuser];
+    if (image) {
+        cell.imageView.image = image;
+    }
+    else {
+        // https://dev.twitter.com/docs/api/1/get/users/profile_image/%3Ascreen_name
+        // GET users/profile_image/:screen_name
+        TWRequest *fetchUserImageRequest = [[TWRequest alloc]
+                                            initWithURL:[NSURL URLWithString:
+                                                         [NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@",
+                                                          tweetscreenuser]]
+                                            parameters:[NSDictionary dictionaryWithObjectsAndKeys:@"bigger", @"size", nil]
+                                            requestMethod:TWRequestMethodGET];
+        [fetchUserImageRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+            if ([urlResponse statusCode] == 200) {
+                UIImage *image = [UIImage imageWithData:responseData];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [_imageCache setObject:image forKey:tweetscreenuser];
+                    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:NO];
+                });
+            }
+        }];
+    }
+
     
     return cell;
 }
@@ -232,21 +272,6 @@
 	return [NSDate date]; // should return date data source was last changed
 }
 
-
-// "Compose Tweet"
-- (void)composeTweet
-{
-//    TweetComposeViewController *tweetComposeViewController = [[TweetComposeViewController alloc] init];
-//    tweetComposeViewController.account = self.account;
-//    tweetComposeViewController.tweetComposeDelegate = self;
-//    [self presentViewController:tweetComposeViewController animated:YES completion:nil];
-    
-    //    TWTweetComposeViewController *tweetComposeViewController = [[TWTweetComposeViewController alloc] init];
-    //    [tweetComposeViewController setCompletionHandler:^(TWTweetComposeViewControllerResult result) {
-    //        [self dismissModalViewControllerAnimated:YES];
-    //    }];
-    //    [self presentModalViewController:tweetComposeViewController animated:YES];
-}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

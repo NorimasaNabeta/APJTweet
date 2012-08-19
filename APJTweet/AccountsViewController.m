@@ -168,6 +168,8 @@
         cell.textLabel.text = username;
     }
     else {
+        // https://dev.twitter.com/docs/api/1/get/users/show
+        // GET users/show
         TWRequest *fetchAdvancedUserProperties = [[TWRequest alloc]
                                                   initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/users/show.json"]
                                                   parameters:[NSDictionary dictionaryWithObjectsAndKeys:account.username, @"screen_name", nil]
@@ -197,6 +199,8 @@
         cell.imageView.image = image;
     }
     else {
+        // https://dev.twitter.com/docs/api/1/get/users/profile_image/%3Ascreen_name
+        // GET users/profile_image/:screen_name
         TWRequest *fetchUserImageRequest = [[TWRequest alloc]
                                             initWithURL:[NSURL URLWithString:
                                                          [NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@",
