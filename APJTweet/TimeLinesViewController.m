@@ -165,8 +165,9 @@
         [fetchUserImageRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
             if ([urlResponse statusCode] == 200) {
                 UIImage *image = [UIImage imageWithData:responseData];
+                [_imageCache setObject:image forKey:tweetscreenuser];
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    [_imageCache setObject:image forKey:tweetscreenuser];
+                    // [_imageCache setObject:image forKey:tweetscreenuser];
                     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:NO];
                 });
             }

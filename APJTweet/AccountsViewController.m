@@ -20,6 +20,7 @@
 @synthesize accounts=_accounts;
 @synthesize accountStore=_accountStore;
 
+// http://stackoverflow.com/questions/7598820/correct-singleton-pattern-objective-c-ios
 @synthesize imageCache = _imageCache;
 @synthesize usernameCache = _usernameCache;
 
@@ -146,14 +147,19 @@
                 NSError *error;
                 id userInfo = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
                 if (userInfo != nil) {
+                    // NSInvalidArgumentException:attempt to insert nil value
+                    NSString *usernameCheck = [userInfo valueForKey:@"name"];
+                    if( usernameCheck == nil){
+                        usernameCheck=@"";
+                    }
+                    [_usernameCache setObject:usernameCheck forKey:account.username];
                     dispatch_sync(dispatch_get_main_queue(), ^{
-                        
                         // NSInvalidArgumentException:attempt to insert nil value
-                        NSString *usernameCheck = [userInfo valueForKey:@"name"];
-                        if( usernameCheck == nil){
-                            usernameCheck=@"";
-                        }
-                        [_usernameCache setObject:usernameCheck forKey:account.username];
+                        // NSString *usernameCheck = [userInfo valueForKey:@"name"];
+                        // if( usernameCheck == nil){
+                        //     usernameCheck=@"";
+                        // }
+                        // [_usernameCache setObject:usernameCheck forKey:account.username];
                         [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:NO];
                     });
                 }
@@ -170,8 +176,9 @@
         [fetchUserImageRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
             if ([urlResponse statusCode] == 200) {
                 UIImage *image = [UIImage imageWithData:responseData];
+                [_imageCache setObject:image forKey:account.username];
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    [_imageCache setObject:image forKey:account.username];
+                    // [_imageCache setObject:image forKey:account.username]; // NSCache is ThreadSafe.
                     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:NO];
                 });
             }
