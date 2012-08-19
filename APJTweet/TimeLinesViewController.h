@@ -19,5 +19,6 @@
 @property (strong, nonatomic) ACAccount *account;
 @property (strong, nonatomic) id timeline;
 
+@property (strong, nonatomic) NSString *slug;
 
 @end

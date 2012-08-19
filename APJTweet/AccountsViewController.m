@@ -271,7 +271,7 @@
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"TimeLines Show"]) {
+    if ([segue.identifier isEqualToString:@"Lists Show"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NSLog(@"%@:indexPath %@", segue.identifier, indexPath);
         [segue.destinationViewController setAccount:[self.accounts objectAtIndex:[indexPath row]]];

@@ -19,9 +19,18 @@
 
 @synthesize account = _account;
 @synthesize timeline = _timeline;
+@synthesize slug=_slug;
 
 @synthesize imageCache = _imageCache;
 @synthesize usernameCache = _usernameCache;
+
+- (void) setAccount:(ACAccount *)account
+{
+    if (_account != account) {
+        _account = account;
+        // NSLog(@"TL: %@", account.username);
+    }
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -83,12 +92,26 @@
 - (void)fetchData
 {
     [_refreshHeaderView refreshLastUpdatedDate];
-    // https://dev.twitter.com/docs/api/1/get/statuses/home_timeline
-    // GET statues/home_timeline
-    NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1/statuses/home_timeline.json"];
-    TWRequest *request = [[TWRequest alloc] initWithURL:url
-                                             parameters:nil
-                                          requestMethod:TWRequestMethodGET];
+    TWRequest *request;
+    if ([self.slug isEqualToString:@"timeline"]) {
+        // https://dev.twitter.com/docs/api/1/get/statuses/home_timeline
+        // GET statues/home_timeline
+        
+        NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1/statuses/home_timeline.json"];
+        request = [[TWRequest alloc] initWithURL:url
+                                                 parameters:nil
+                                              requestMethod:TWRequestMethodGET];
+    } else {
+    // [NSDictionary dictionaryWithObjectsAndKeys:self.account.username, @"owner_screen_name", self.slug, @"slug", nil]
+    // https://dev.twitter.com/docs/api/1/get/lists/statuses
+    // GET lists/statuses
+    // https://api.twitter.com/1/lists/statuses.json?slug=team&owner_screen_name=twitter&per_page=1&page=1&include_entities=true
+        NSURL *urlList = [NSURL URLWithString:@"https://api.twitter.com/1/lists/statuses.json"];
+    // NSDictionary *parametersList = [NSDictionary dictionaryWithObjectsAndKeys:@"anime", @"slug", @"norimasa_nabeta", @"owner_screen_name", nil];
+        request = [[TWRequest alloc] initWithURL:urlList
+                                      parameters:[NSDictionary dictionaryWithObjectsAndKeys:self.account.username, @"owner_screen_name", self.slug, @"slug", nil]
+                                   requestMethod:TWRequestMethodGET];
+    }
     [request setAccount:self.account];
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         if ([urlResponse statusCode] == 200) {
