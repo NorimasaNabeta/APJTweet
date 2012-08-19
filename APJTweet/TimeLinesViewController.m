@@ -5,9 +5,10 @@
 //  Created by Norimasa Nabeta on 2012/08/19.
 //  Copyright (c) 2012年 Norimasa Nabeta. All rights reserved.
 //
-#import <Twitter/Twitter.h>
+
 #import "TimeLinesViewController.h"
 #import "TweetComposeViewController.h"
+#import "TwitterAPI.h"
 
 @interface TimeLinesViewController ()
 - (void)fetchData;
@@ -94,25 +95,10 @@
     [_refreshHeaderView refreshLastUpdatedDate];
     TWRequest *request;
     if ([self.slug isEqualToString:@"timeline"]) {
-        // https://dev.twitter.com/docs/api/1/get/statuses/home_timeline
-        // GET statues/home_timeline
-        
-        NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1/statuses/home_timeline.json"];
-        request = [[TWRequest alloc] initWithURL:url
-                                                 parameters:nil
-                                              requestMethod:TWRequestMethodGET];
+        request = [TwitterAPI getStatusHomeTimeLine:self.account];
     } else {
-    // [NSDictionary dictionaryWithObjectsAndKeys:self.account.username, @"owner_screen_name", self.slug, @"slug", nil]
-    // https://dev.twitter.com/docs/api/1/get/lists/statuses
-    // GET lists/statuses
-    // https://api.twitter.com/1/lists/statuses.json?slug=team&owner_screen_name=twitter&per_page=1&page=1&include_entities=true
-        NSURL *urlList = [NSURL URLWithString:@"https://api.twitter.com/1/lists/statuses.json"];
-    // NSDictionary *parametersList = [NSDictionary dictionaryWithObjectsAndKeys:@"anime", @"slug", @"norimasa_nabeta", @"owner_screen_name", nil];
-        request = [[TWRequest alloc] initWithURL:urlList
-                                      parameters:[NSDictionary dictionaryWithObjectsAndKeys:self.account.username, @"owner_screen_name", self.slug, @"slug", nil]
-                                   requestMethod:TWRequestMethodGET];
+        request = [TwitterAPI getListsStatuses:self.account slug:self.slug];
     }
-    [request setAccount:self.account];
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         if ([urlResponse statusCode] == 200) {
             NSError *jsonError = nil;
@@ -142,8 +128,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//#warning Potentially incomplete method implementation.
-    // Return the number of sections.
     return 1;
 }
 

@@ -6,8 +6,8 @@
 //  Copyright (c) 2012年 Norimasa Nabeta. All rights reserved.
 //
 
-#import <Twitter/Twitter.h>
 #import "AccountsViewController.h"
+#import "TwitterAPI.h"
 
 @interface AccountsViewController ()
 - (void)fetchData;
@@ -32,34 +32,6 @@
     return self;
 }
 
-/*
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    self.title = @"Accounts";
-    if (self) {
-        if (_refreshHeaderView == nil) {
-            EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:
-                                               CGRectMake(0.0f,
-                                                          0.0f - self.tableView.bounds.size.height,
-                                                          self.tableView.frame.size.width,
-                                                          self.tableView.bounds.size.height)];
-            view.delegate = self;
-            [self.tableView addSubview:view];
-            _refreshHeaderView = view;
-            _refreshHeaderView.delegate = self;
-        }
-        
-        _imageCache = [[NSCache alloc] init];
-        [_imageCache setName:@"TWImageCache"];
-        _usernameCache = [[NSCache alloc] init];
-        [_usernameCache setName:@"TWUsernameCache"];
-        [self fetchData];
-    }
-    return self;
-}
-*/
-
 - (void)didReceiveMemoryWarning
 {
     [_imageCache removeAllObjects];
@@ -71,7 +43,7 @@
 {
     [super viewDidLoad];
     if (_refreshHeaderView == nil) {
-        NSLog(@"INIT EGORefresh>>");
+        // NSLog(@"INIT EGORefresh>>");
         EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:
                                            CGRectMake(0.0f,
                                                       0.0f - self.tableView.bounds.size.height,
@@ -168,12 +140,7 @@
         cell.textLabel.text = username;
     }
     else {
-        // https://dev.twitter.com/docs/api/1/get/users/show
-        // GET users/show
-        TWRequest *fetchAdvancedUserProperties = [[TWRequest alloc]
-                                                  initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/users/show.json"]
-                                                  parameters:[NSDictionary dictionaryWithObjectsAndKeys:account.username, @"screen_name", nil]
-                                                  requestMethod:TWRequestMethodGET];
+        TWRequest *fetchAdvancedUserProperties = [TwitterAPI getUsersShow:account];
         [fetchAdvancedUserProperties performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
             if ([urlResponse statusCode] == 200) {
                 NSError *error;
@@ -199,14 +166,7 @@
         cell.imageView.image = image;
     }
     else {
-        // https://dev.twitter.com/docs/api/1/get/users/profile_image/%3Ascreen_name
-        // GET users/profile_image/:screen_name
-        TWRequest *fetchUserImageRequest = [[TWRequest alloc]
-                                            initWithURL:[NSURL URLWithString:
-                                                         [NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@",
-                                                          account.username]]
-                                            parameters:[NSDictionary dictionaryWithObjectsAndKeys:@"bigger", @"size", nil]
-                                            requestMethod:TWRequestMethodGET];
+        TWRequest *fetchUserImageRequest = [TwitterAPI getUsersProfileImage:account];
         [fetchUserImageRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
             if ([urlResponse statusCode] == 200) {
                 UIImage *image = [UIImage imageWithData:responseData];

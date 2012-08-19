@@ -5,9 +5,9 @@
 //  Created by Norimasa Nabeta on 2012/08/19.
 //  Copyright (c) 2012年 Norimasa Nabeta. All rights reserved.
 
-#import <Twitter/Twitter.h>
 #import "ListsViewController.h"
 #import "TimeLinesViewController.h"
+#import "TwitterAPI.h"
 
 @interface ListsViewController ()
 - (void)fetchData;
@@ -82,14 +82,8 @@
 - (void)fetchData
 {
     [_refreshHeaderView refreshLastUpdatedDate];
-    // https://dev.twitter.com/docs/api/1/get/lists/all
-    // GET lists/all
-    NSURL *urlList = [NSURL URLWithString:@"https://api.twitter.com/1/lists/all.json"];
-    // NSDictionary *parametersList = [NSDictionary dictionaryWithObjectsAndKeys:@"norimasa_nabeta", @"screen_name", nil];
-    TWRequest *request = [[TWRequest alloc] initWithURL:urlList
-                                             parameters:[NSDictionary dictionaryWithObjectsAndKeys:self.account.username, @"screen_name", nil]
-                                          requestMethod:TWRequestMethodGET];
-    [request setAccount:self.account];
+
+    TWRequest *request=[TwitterAPI getListsAll:self.account];
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         if ([urlResponse statusCode] == 200) {
             NSError *jsonError = nil;

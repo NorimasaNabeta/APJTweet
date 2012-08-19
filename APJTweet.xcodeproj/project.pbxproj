@@ -31,6 +31,7 @@
 		F26669DF15E05DFF00B08CAC /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F26669DE15E05DFF00B08CAC /* Twitter.framework */; };
 		F26669E115E05ED100B08CAC /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = F26669E015E05ED100B08CAC /* Placeholder.png */; };
 		F26669E815E06C2A00B08CAC /* TweetComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F26669E715E06C2A00B08CAC /* TweetComposeViewController.m */; };
+		F28F8D6A15E128970091EF47 /* TwitterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = F28F8D6915E128970091EF47 /* TwitterAPI.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,8 @@
 		F26669E015E05ED100B08CAC /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
 		F26669E615E06C2A00B08CAC /* TweetComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetComposeViewController.h; sourceTree = "<group>"; };
 		F26669E715E06C2A00B08CAC /* TweetComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetComposeViewController.m; sourceTree = "<group>"; };
+		F28F8D6815E128970091EF47 /* TwitterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAPI.h; sourceTree = "<group>"; };
+		F28F8D6915E128970091EF47 /* TwitterAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAPI.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +135,8 @@
 				F26669D515E05A0F00B08CAC /* ListsViewController.m */,
 				F26669D715E05A2B00B08CAC /* TimeLinesViewController.h */,
 				F26669D815E05A2B00B08CAC /* TimeLinesViewController.m */,
+				F28F8D6815E128970091EF47 /* TwitterAPI.h */,
+				F28F8D6915E128970091EF47 /* TwitterAPI.m */,
 			);
 			path = APJTweet;
 			sourceTree = "<group>";
@@ -244,6 +249,7 @@
 				F26669D615E05A0F00B08CAC /* ListsViewController.m in Sources */,
 				F26669D915E05A2B00B08CAC /* TimeLinesViewController.m in Sources */,
 				F26669E815E06C2A00B08CAC /* TweetComposeViewController.m in Sources */,
+				F28F8D6A15E128970091EF47 /* TwitterAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +365,7 @@
 				F26669B815E056C900B08CAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
