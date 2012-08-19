@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ListsViewController.h
 //  APJTweet
 //
 //  Created by Norimasa Nabeta on 2012/08/19.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ListsViewController : UITableViewController
 
 @end
