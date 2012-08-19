@@ -22,11 +22,16 @@
     return request;
 }
 
+
+// "profile_image_url_https": "https://si0.twimg.com/profile_images/1390759306/n208911_31619766_8580_normal.jpg",
+// NSURL *urlImage = [NSURL URLWithString:[tweet valueForKeyPath:@"profile_image_url_https"]];
+
+
 // https://dev.twitter.com/docs/api/1/get/users/profile_image/%3Ascreen_name
 // GET users/profile_image/:screen_name
-+ (TWRequest *) getUsersProfileImage:(ACAccount *)account
++ (TWRequest *) getUsersProfileImage:(ACAccount *)account screenname:(NSString*) screen_name
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@", account.username]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@", screen_name]];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"bigger", @"size", nil];
     TWRequest *request = [[TWRequest alloc] initWithURL:url parameters:params requestMethod:TWRequestMethodGET];
     [request setAccount:account];
@@ -71,8 +76,6 @@
     
     return request;
 }
-
-
 
 
 @end

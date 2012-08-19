@@ -151,7 +151,7 @@
     
     // Configure the cell...
     if (indexPath.section == 0) {
-        cell.textLabel.text = @"TimeLine";
+        cell.textLabel.text = @"Home";
     } else {
         id tweet = [self.userslist objectAtIndex:[indexPath row]];
         // NSLog(@"Tweet at index %d is %@", [indexPath row], tweet);

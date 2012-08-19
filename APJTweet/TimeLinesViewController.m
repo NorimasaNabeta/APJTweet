@@ -161,14 +161,7 @@
         cell.imageView.image = image;
     }
     else {
-        // https://dev.twitter.com/docs/api/1/get/users/profile_image/%3Ascreen_name
-        // GET users/profile_image/:screen_name
-        TWRequest *fetchUserImageRequest = [[TWRequest alloc]
-                                            initWithURL:[NSURL URLWithString:
-                                                         [NSString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@",
-                                                          tweetscreenuser]]
-                                            parameters:[NSDictionary dictionaryWithObjectsAndKeys:@"bigger", @"size", nil]
-                                            requestMethod:TWRequestMethodGET];
+        TWRequest *fetchUserImageRequest = [TwitterAPI getUsersProfileImage:self.account screenname:tweetscreenuser];
         [fetchUserImageRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
             if ([urlResponse statusCode] == 200) {
                 UIImage *image = [UIImage imageWithData:responseData];

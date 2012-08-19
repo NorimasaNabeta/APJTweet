@@ -166,7 +166,7 @@
         cell.imageView.image = image;
     }
     else {
-        TWRequest *fetchUserImageRequest = [TwitterAPI getUsersProfileImage:account];
+        TWRequest *fetchUserImageRequest = [TwitterAPI getUsersProfileImage:account screenname:account.username];
         [fetchUserImageRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
             if ([urlResponse statusCode] == 200) {
                 UIImage *image = [UIImage imageWithData:responseData];

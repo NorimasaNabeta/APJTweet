@@ -13,7 +13,7 @@
 @interface TwitterAPI : NSObject
 
 + (TWRequest *) getUsersShow:(ACAccount *)account;
-+ (TWRequest *) getUsersProfileImage:(ACAccount *)account;
++ (TWRequest *) getUsersProfileImage:(ACAccount *)account screenname:(NSString*) screen_name;
 
 + (TWRequest *) getListsAll:(ACAccount *)account;
 
