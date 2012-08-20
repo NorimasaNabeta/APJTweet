@@ -9,12 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <Accounts/Accounts.h>
 #import "TweetComposeViewController.h"
-#import "EGORefreshTableHeaderView.h"
 
-@interface TimeLinesViewController : UITableViewController<TweetComposeViewControllerDelegate, EGORefreshTableHeaderDelegate> {
-    EGORefreshTableHeaderView *_refreshHeaderView;
-    BOOL _reloading;
-}
+#import "EGORefreshTableViewController.h"
+@interface TimeLinesViewController : EGORefreshTableViewController <TweetComposeViewControllerDelegate>
 
 @property (strong, nonatomic) ACAccount *account;
 @property (strong, nonatomic) id timeline;

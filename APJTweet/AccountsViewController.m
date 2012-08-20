@@ -20,7 +20,6 @@
 @synthesize accounts=_accounts;
 @synthesize accountStore=_accountStore;
 
-// http://stackoverflow.com/questions/7598820/correct-singleton-pattern-objective-c-ios
 @synthesize usernameCache = _usernameCache;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -42,19 +41,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (_refreshHeaderView == nil) {
-        // NSLog(@"INIT EGORefresh>>");
-        EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:
-                                           CGRectMake(0.0f,
-                                                      0.0f - self.tableView.bounds.size.height,
-                                                      self.tableView.frame.size.width,
-                                                      self.tableView.bounds.size.height)];
-        view.delegate = self;
-        [self.tableView addSubview:view];
-        _refreshHeaderView = view;
-        _refreshHeaderView.delegate = self;
-    }
-    
+
     _usernameCache = [[NSCache alloc] init];
     [_usernameCache setName:@"TWUsernameCache"];
     [self fetchData];
@@ -129,6 +116,7 @@
     }
     
     // Configure the cell...
+    // http://stackoverflow.com/questions/8839464/uilabel-string-as-text-and-links
     ACAccount *account = [self.accounts objectAtIndex:[indexPath row]];
     cell.textLabel.text = account.username;
     cell.detailTextLabel.text = account.accountDescription;
@@ -256,41 +244,5 @@
     _reloading = YES;
     [self fetchData];
 }
-
-- (void)doneLoadingTableViewData
-{
-    //  model should call this when its done loading
-    _reloading = NO;
-    [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
-}
-
-#pragma mark UIScrollViewDelegate Methods
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
-}
-
-#pragma mark - EGORefreshTableHeaderDelegate
-
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
-{
-	[self reloadTableViewDataSource];
-}
-
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
-{
-	return _reloading; // should return if data source model is reloading
-}
-
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view
-{
-    return [NSDate date]; // should return date data source was last changed
-}
-
 
 @end

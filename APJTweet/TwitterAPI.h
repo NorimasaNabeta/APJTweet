@@ -20,4 +20,10 @@
 + (TWRequest *) getStatusHomeTimeLine:(ACAccount *)account;
 + (TWRequest *) getListsStatuses:(ACAccount *)account slug:(NSString*)slug;
 
++ (TWRequest *) getFriendsIds:(ACAccount *)account  screenname:(NSString*) screen_name;
++ (TWRequest *) getFollowersIds:(ACAccount *)account  screenname:(NSString*) screen_name;
++ (TWRequest *) getUsersLookup:(ACAccount *)account  userids:(NSString*) ids;
+
++ (TWRequest *) getUsersLookup:(ACAccount *)account  screenname:(NSString*) screen_name;
+
 @end

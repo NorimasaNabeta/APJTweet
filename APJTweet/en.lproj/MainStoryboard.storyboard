@@ -56,7 +56,57 @@
                     <navigationItem key="navigationItem" title="Accounts" id="00l-ep-l7H"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1112" y="-474"/>
+            <point key="canvasLocation" x="1638" y="-474"/>
+        </scene>
+        <!--Followers And Friends Table View Controller - Lists-->
+        <scene sceneID="ZKm-ps-RQ1">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uqA-Uf-kYm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="iIy-tB-DM4" customClass="FollowersAndFriendsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="15h-dx-dNd">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="List Cell" textLabel="2OK-8q-Qif" detailTextLabel="6MW-Ub-uCt" imageView="Uoo-yy-Dt5" style="IBUITableViewCellStyleSubtitle" id="g1t-X7-NtJ">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2OK-8q-Qif">
+                                            <rect key="frame" x="53" y="2" width="38" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6MW-Ub-uCt">
+                                            <rect key="frame" x="53" y="24" width="47" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Placeholder.png" id="Uoo-yy-Dt5">
+                                            <rect key="frame" x="0.0" y="0.0" width="43" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="iIy-tB-DM4" id="ZJg-v1-BRc"/>
+                            <outlet property="delegate" destination="iIy-tB-DM4" id="VsJ-Gp-kiD"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Lists" id="cXM-ij-Ikl"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1380" y="123"/>
         </scene>
         <!--Tweet Compose View Controller-->
         <scene sceneID="fKL-39-xK0">
@@ -103,7 +153,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2646" y="-412"/>
+            <point key="canvasLocation" x="3172" y="-412"/>
         </scene>
         <!--Time Lines View Controller - TableView3-->
         <scene sceneID="53Q-GU-B31">
@@ -159,7 +209,7 @@
                     </navigationItem>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="2189" y="-424"/>
+            <point key="canvasLocation" x="2715" y="-424"/>
         </scene>
         <!--Lists View Controller - TableView2-->
         <scene sceneID="hCy-dt-lrv">
@@ -212,14 +262,14 @@
                     <navigationItem key="navigationItem" title="TableView2" id="bCd-ad-MRW"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1652" y="-474"/>
+            <point key="canvasLocation" x="2178" y="-474"/>
         </scene>
-        <!--Navigation Controller - Item-->
+        <!--Navigation Controller-->
         <scene sceneID="sGr-G7-xTe">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HmF-Ng-YWl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="m08-kd-d1u" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="7SY-is-xEl"/>
+                    <tabBarItem key="tabBarItem" systemItem="bookmarks" id="7SY-is-xEl"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wpD-SB-uNY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -246,15 +296,64 @@
                     </tabBar>
                     <connections>
                         <segue destination="m08-kd-d1u" kind="relationship" relationship="viewControllers" id="G4W-9P-Y3g"/>
+                        <segue destination="727-5V-OYc" kind="relationship" relationship="viewControllers" id="13f-dM-JCG"/>
                     </connections>
                 </tabBarController>
             </objects>
             <point key="canvasLocation" x="205" y="-81"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="S1B-w6-Em4">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CJx-Gq-UuA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="727-5V-OYc" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="contacts" id="5Oy-M6-Bau"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="UyA-0v-Rr9"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YGQ-zr-kaS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="iIy-tB-DM4" kind="relationship" relationship="rootViewController" id="kpg-qp-KW4"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="655" y="87"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Placeholder.png" width="48" height="48"/>
     </resources>
+    <classes>
+        <class className="AccountsViewController" superclassName="EGORefreshTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AccountsViewController.h"/>
+        </class>
+        <class className="EGORefreshTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EGORefreshTableViewController.h"/>
+        </class>
+        <class className="FollowersAndFriendsTableViewController" superclassName="EGORefreshTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FollowersAndFriendsTableViewController.h"/>
+        </class>
+        <class className="ListsViewController" superclassName="EGORefreshTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ListsViewController.h"/>
+        </class>
+        <class className="TimeLinesViewController" superclassName="EGORefreshTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TimeLinesViewController.h"/>
+        </class>
+        <class className="TweetComposeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TweetComposeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="sendTweet:"/>
+                <relationship kind="outlet" name="closeButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="sendButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="titleView" candidateClass="UINavigationItem"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

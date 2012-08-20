@@ -77,5 +77,54 @@
     return request;
 }
 
+// https://dev.twitter.com/docs/api/1/get/friends/ids
+// GET friends/ids
+// https://api.twitter.com/1/friends/ids.json?cursor=-1&screen_name=twitterapi
++ (TWRequest *) getFriendsIds:(ACAccount *)account  screenname:(NSString*) screen_name
+{
+    NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1/friends/ids.json"];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:screen_name, @"screen_name", nil];
+    TWRequest *request = [[TWRequest alloc] initWithURL:url parameters:params requestMethod:TWRequestMethodGET];
+    [request setAccount:account];
+    
+    return request;
+}
+
+// https://dev.twitter.com/docs/api/1/get/followers/ids
+// GET followers/ids
+// https://api.twitter.com/1/followers/ids.json?cursor=-1&screen_name=twitterapi
++ (TWRequest *) getFollowersIds:(ACAccount *)account  screenname:(NSString*) screen_name
+{
+    NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1/followers/ids.json"];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:screen_name, @"screen_name", nil];
+    TWRequest *request = [[TWRequest alloc] initWithURL:url parameters:params requestMethod:TWRequestMethodGET];
+    [request setAccount:account];
+    
+    return request;
+}
+
+// https://dev.twitter.com/docs/api/1/get/users/lookup
+// GET users/lookup
+// https://api.twitter.com/1/users/lookup.json?screen_name=twitterapi,twitter&include_entities=true
++ (TWRequest *) getUsersLookup:(ACAccount *)account  screenname:(NSString*) screen_name
+{
+    NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1/users/lookup.json"];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:screen_name, @"screen_name", nil];
+    TWRequest *request = [[TWRequest alloc] initWithURL:url parameters:params requestMethod:TWRequestMethodGET];
+    [request setAccount:account];
+    
+    return request;
+}
+
++ (TWRequest *) getUsersLookup:(ACAccount *)account  userids:(NSString*) ids
+{
+    NSURL *url = [NSURL URLWithString:@"https://api.twitter.com/1/users/lookup.json"];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:ids, @"user_id", nil];
+    TWRequest *request = [[TWRequest alloc] initWithURL:url parameters:params requestMethod:TWRequestMethodGET];
+    [request setAccount:account];
+    
+    return request;
+}
+
 
 @end

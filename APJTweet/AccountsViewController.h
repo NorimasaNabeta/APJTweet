@@ -8,12 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <Accounts/Accounts.h>
-#import "EGORefreshTableHeaderView.h"
+#import "EGORefreshTableViewController.h"
 
-@interface AccountsViewController : UITableViewController <EGORefreshTableHeaderDelegate> {
-    EGORefreshTableHeaderView *_refreshHeaderView;
-    BOOL _reloading;
-}
+@interface AccountsViewController : EGORefreshTableViewController
 
 @property (strong, nonatomic) ACAccountStore *accountStore;
 @property (strong, nonatomic) NSArray *accounts;

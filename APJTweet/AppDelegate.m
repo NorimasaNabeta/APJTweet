@@ -11,6 +11,7 @@
 @implementation AppDelegate
 @synthesize imageCache = _imageCache;
 
+// http://stackoverflow.com/questions/7598820/correct-singleton-pattern-objective-c-ios
 // http://stackoverflow.com/questions/11691789/nscache-does-removeallobjects-release-the-memory-usage-im-using-arc
 //
 //
@@ -26,8 +27,7 @@
     return _imageCache;
 }
 
-- (BOOL)application:(UIApplication *)application
-didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
     return YES;
