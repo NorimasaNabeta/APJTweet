@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
-        <!--Accounts View Controller - TableView1-->
+        <!--Accounts View Controller - Accounts-->
         <scene sceneID="jUy-sk-3ho">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y1Z-l8-4L7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -53,7 +53,7 @@
                             <outlet property="delegate" destination="7Ng-Z5-PDF" id="abW-Cs-iEb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="TableView1" id="00l-ep-l7H"/>
+                    <navigationItem key="navigationItem" title="Accounts" id="00l-ep-l7H"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1112" y="-474"/>

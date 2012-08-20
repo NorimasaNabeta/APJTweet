@@ -8,11 +8,11 @@
 
 #import "AccountsViewController.h"
 #import "TwitterAPI.h"
+#import "AppDelegate.h"
 
 @interface AccountsViewController ()
 - (void)fetchData;
 @property (strong, nonatomic) NSCache *usernameCache;
-@property (strong, nonatomic) NSCache *imageCache;
 @end
 
 @implementation AccountsViewController
@@ -21,7 +21,6 @@
 @synthesize accountStore=_accountStore;
 
 // http://stackoverflow.com/questions/7598820/correct-singleton-pattern-objective-c-ios
-@synthesize imageCache = _imageCache;
 @synthesize usernameCache = _usernameCache;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -35,7 +34,7 @@
 
 - (void)didReceiveMemoryWarning
 {
-    [_imageCache removeAllObjects];
+//    [_imageCache removeAllObjects];
     [_usernameCache removeAllObjects];
     [super didReceiveMemoryWarning];
 }
@@ -56,8 +55,6 @@
         _refreshHeaderView.delegate = self;
     }
     
-    _imageCache = [[NSCache alloc] init];
-    [_imageCache setName:@"TWImageCache"];
     _usernameCache = [[NSCache alloc] init];
     [_usernameCache setName:@"TWUsernameCache"];
     [self fetchData];
@@ -166,9 +163,11 @@
             }
         }];
     }
-    
-    UIImage *image = [_imageCache objectForKey:account.username];
+
+    id appDelegate = (id)[[UIApplication sharedApplication] delegate];
+    UIImage *image = [[appDelegate imageCache] objectForKey:account.username];
     if (image) {
+        // NSLog(@"Hit: %@", account.username);
         cell.imageView.image = image;
     }
     else {
@@ -176,14 +175,15 @@
         [fetchUserImageRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
             if ([urlResponse statusCode] == 200) {
                 UIImage *image = [UIImage imageWithData:responseData];
-                [_imageCache setObject:image forKey:account.username];
+                [[appDelegate imageCache] setObject:image forKey:account.username];
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    // [_imageCache setObject:image forKey:account.username]; // NSCache is ThreadSafe.
                     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:NO];
                 });
             }
         }];
     }
+
+    
     return cell;
 }
 

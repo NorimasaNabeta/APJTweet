@@ -120,7 +120,7 @@
     NSString *title;
     switch (section) {
         case 0:
-            title=@"Timeline";
+            title=@"Home";
             break;
             
         default:
@@ -151,7 +151,7 @@
     
     // Configure the cell...
     if (indexPath.section == 0) {
-        cell.textLabel.text = @"Home";
+        cell.textLabel.text = @"TimeLine";
     } else {
         id tweet = [self.userslist objectAtIndex:[indexPath row]];
         // NSLog(@"Tweet at index %d is %@", [indexPath row], tweet);

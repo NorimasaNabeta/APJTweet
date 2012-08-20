@@ -9,11 +9,11 @@
 #import "TimeLinesViewController.h"
 #import "TweetComposeViewController.h"
 #import "TwitterAPI.h"
+#import "AppDelegate.h"
 
 @interface TimeLinesViewController ()
 - (void)fetchData;
-@property (strong, nonatomic) NSCache *usernameCache;
-@property (strong, nonatomic) NSCache *imageCache;
+@property (nonatomic,strong) NSMutableDictionary *threadList;
 @end
 
 @implementation TimeLinesViewController
@@ -21,9 +21,7 @@
 @synthesize account = _account;
 @synthesize timeline = _timeline;
 @synthesize slug=_slug;
-
-@synthesize imageCache = _imageCache;
-@synthesize usernameCache = _usernameCache;
+@synthesize threadList=_threadList;
 
 - (void) setAccount:(ACAccount *)account
 {
@@ -31,6 +29,14 @@
         _account = account;
         // NSLog(@"TL: %@", account.username);
     }
+}
+
+- (NSMutableDictionary*) threadList
+{
+    if(_threadList == nil){
+        _threadList = [[NSMutableDictionary alloc] initWithObjectsAndKeys: nil];
+    }
+    return _threadList;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -56,10 +62,6 @@
         [self.tableView addSubview:view];
         _refreshHeaderView = view;
         _refreshHeaderView.delegate = self;
-        _imageCache = [[NSCache alloc] init];
-        [_imageCache setName:@"TWTLImageCache"];
-        _usernameCache = [[NSCache alloc] init];
-        [_usernameCache setName:@"TWTLUsernameCache"];
     }
 
     // Uncomment the following line to preserve selection between presentations.
@@ -148,32 +150,45 @@
     
     // Configure the cell...
     id tweet = [self.timeline objectAtIndex:[indexPath row]];
+    NSString* tweetscreenuser = [tweet valueForKeyPath:@"user.screen_name"];
+    NSString* tweetuser = [tweet valueForKeyPath:@"user.name"];
     // NSLog(@"Tweet at index %d is %@", [indexPath row], tweet);
 
     cell.textLabel.text = [tweet objectForKey:@"text"];
-    cell.detailTextLabel.text = [tweet valueForKeyPath:@"user.name"];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ @%@",tweetuser, tweetscreenuser];
 
-    NSString* tweetscreenuser = [tweet valueForKeyPath:@"user.screen_name"];
-    // NSString* tweetuser = [tweet valueForKeyPath:@"user.name"];
-    // NSLog(@"user:%@ screen:%@", tweetuser, tweetscreenuser);
-    UIImage *image = [_imageCache objectForKey:tweetscreenuser];
+    id appDelegate = (id)[[UIApplication sharedApplication] delegate];
+    UIImage *image = [[appDelegate imageCache] objectForKey:tweetscreenuser];
     if (image) {
+        // NSLog(@"HIT user:%@ screen:%@", tweetuser, tweetscreenuser);
         cell.imageView.image = image;
     }
     else {
-        TWRequest *fetchUserImageRequest = [TwitterAPI getUsersProfileImage:self.account screenname:tweetscreenuser];
-        [fetchUserImageRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-            if ([urlResponse statusCode] == 200) {
-                UIImage *image = [UIImage imageWithData:responseData];
-                [_imageCache setObject:image forKey:tweetscreenuser];
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    // [_imageCache setObject:image forKey:tweetscreenuser];
-                    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:NO];
-                });
-            }
-        }];
+        //
+        // Do not fetch the profile image, which is already waiting to fetch on the previous thread.
+        NSString *valid = [self.threadList objectForKey:tweetscreenuser];
+        if (valid == nil) {
+            [self.threadList setObject:@"ON" forKey:tweetscreenuser];
+        
+            TWRequest *fetchUserImageRequest = [TwitterAPI getUsersProfileImage:self.account screenname:tweetscreenuser];
+            [fetchUserImageRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+                if ([urlResponse statusCode] == 200) {
+                    UIImage *image = [UIImage imageWithData:responseData];
+                    [[appDelegate imageCache] setObject:image forKey:tweetscreenuser];
+                    dispatch_sync(dispatch_get_main_queue(), ^{
+                        // cell.imageView.image = image;
+                        // [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:NO];
+                        [self.threadList removeObjectForKey:tweetscreenuser];
+                        [self.tableView reloadData];
+                    });
+                }
+            }];
+        } else {
+        //    NSLog(@"SUPRESS:%@", tweetscreenuser);
+        }
     }
 
+    
     
     return cell;
 }

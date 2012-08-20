@@ -9,8 +9,25 @@
 #import "AppDelegate.h"
 
 @implementation AppDelegate
+@synthesize imageCache = _imageCache;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+// http://stackoverflow.com/questions/11691789/nscache-does-removeallobjects-release-the-memory-usage-im-using-arc
+//
+//
+- (NSCache*) imageCache
+{
+    if(_imageCache == nil){
+        _imageCache = [[NSCache alloc] init];
+        [_imageCache setName:@"TWProfileImageCache"];
+        [_imageCache setCountLimit:100];
+        [_imageCache setTotalCostLimit:1500000];
+        [_imageCache setEvictsObjectsWithDiscardedContent:YES];
+    }
+    return _imageCache;
+}
+
+- (BOOL)application:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
     return YES;
