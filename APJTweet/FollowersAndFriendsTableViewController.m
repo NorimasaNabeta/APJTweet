@@ -116,6 +116,7 @@
         [followersSet addObject:[[followersList objectAtIndex:idx] objectForKey:@"screen_name"]];
         [allSet addObject:[[followersList objectAtIndex:idx] objectForKey:@"screen_name"]];
     }
+    
     // Configure the cell...
     id dict = [friendsList objectAtIndex:indexPath.row];
     // NSArray *all = [allSet allObjects];
@@ -207,6 +208,23 @@
      */
 }
 
+
+
+// TODO: marge fetchDataAux3 and fetchDataAux4, create new id_number <--> user_profile database.
+//       account --> firends, followers into NSUserDefaults
+// NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+// [defaults dictionaryForKey:screen_name];
+// NSArray *recents = [defaults arrayForKey:FAVORITES_KEY];
+// if (! recents){
+//     recents = [NSMutableArray array];
+// }
+// NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+// NSMutableArray *favorites = [[defaults objectForKey:FAVORITES_KEY] mutableCopy];
+// [favorites insertObject:photo atIndex:0];
+// [defaults setObject:[favorites copy] forKey:FAVORITES_KEY];
+// [defaults synchronize];
+
+
 - (void) fetchDataAux3:(ACAccount *)account userid:(NSArray*) ids
 {
     // + (TWRequest *) getUsersLookup:(ACAccount *)account  userids:(NSString*) ids;
@@ -249,6 +267,7 @@
     
 }
 
+// TODO: set this result into NSUserDefaults, as the dictionary for key screen_name.
 -(void) fetchDataAux1:(ACAccount*) account
 {
     TWRequest *request=[TwitterAPI getFriendsIds:account screenname:account.username];
@@ -273,6 +292,7 @@
 
 }
 
+// TODO: set this result into NSUserDefaults, as the dictionary for key screen_name.
 - (void)fetchDataAux2:(ACAccount*)account
 {
     TWRequest *request=[TwitterAPI getFollowersIds:account screenname:account.username];
