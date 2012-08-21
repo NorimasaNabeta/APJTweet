@@ -12,6 +12,12 @@
 @interface UserProfileViewController : UITableViewController
 
 @property (strong, nonatomic) ACAccount *account;
-@property (strong, nonatomic) NSString *screenname;
+@property (strong, nonatomic) NSDictionary *userinfo;
 
+@property (weak, nonatomic) IBOutlet UIImageView *profileImage;
+@property (weak, nonatomic) IBOutlet UILabel *labelName;
+@property (weak, nonatomic) IBOutlet UILabel *labelScreenName;
+@property (weak, nonatomic) IBOutlet UILabel *textStatusText;
+@property (weak, nonatomic) IBOutlet UISwitch *swFollow;
+@property (weak, nonatomic) IBOutlet UILabel *textDetail;
 @end

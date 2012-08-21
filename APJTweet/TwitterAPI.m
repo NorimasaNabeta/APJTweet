@@ -126,5 +126,18 @@
     return request;
 }
 
+// https://dev.twitter.com/docs/api/1/post/friendships/create
+// POST friendships/create
+// https://api.twitter.com/1/friendships/create.json
+// user_id=1401881
+
+// https://dev.twitter.com/docs/api/1/post/friendships/destroy
+// POST friendships/destroy
+// http://api.twitter.com/1/friendships/destroy.json
+// Either user_id or screen_name must be provided.
+
+
+// http://engineering.twitter.com/2010/02/woeids-in-twitters-trends.html
+
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "UserProfileViewController.h"
+#import "TwitterAPI.h"
+#import "AppDelegate.h"
 
 @interface UserProfileViewController ()
 
@@ -14,7 +16,13 @@
 
 @implementation UserProfileViewController
 @synthesize account=_account;
-@synthesize screenname=_screenname;
+@synthesize userinfo=_userinfo;
+@synthesize profileImage = _profileImage;
+@synthesize labelName = _labelName;
+@synthesize labelScreenName = _labelScreenName;
+@synthesize textStatusText = _textStatusText;
+@synthesize swFollow = _swFollow;
+@synthesize textDetail = _textDetail;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -29,6 +37,39 @@
 {
     [super viewDidLoad];
 
+    NSString *screen_name = [self.userinfo objectForKey:@"screen_name"];
+    NSString *following = [self.userinfo objectForKey:@"following"];
+    if ( [self.userinfo objectForKey:@"following"] ){
+        NSLog(@"%@ ON:following:%@", screen_name, following);
+        self.swFollow.on =YES;
+    } else {
+        NSLog(@"%@ OFF:following:%@", screen_name, following);
+        self.swFollow.on =NO;
+    }
+    self.labelScreenName.text=[NSString stringWithFormat:@"@%@", screen_name];
+    self.labelName.text = [self.userinfo objectForKey:@"name"];
+    self.textStatusText.text = [self.userinfo valueForKeyPath:@"description"];
+    id appDelegate = (id)[[UIApplication sharedApplication] delegate];
+    UIImage *image = [[appDelegate imageCache] objectForKey:screen_name];
+    if (image) {
+        // NSLog(@"Hit: %@", self.screenname);
+        self.profileImage.image = image;
+    }
+    else {
+        TWRequest *fetchUserImageRequest = [TwitterAPI getUsersProfileImage:self.account screenname:screen_name];
+        [fetchUserImageRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+            if ([urlResponse statusCode] == 200) {
+                UIImage *image = [UIImage imageWithData:responseData];
+                [[appDelegate imageCache] setObject:image forKey:screen_name];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    self.profileImage.image = image;
+                    [self.tableView reloadData];
+                });
+            }
+        }];
+    }
+    [self.tableView reloadData];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -36,8 +77,18 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+}
+
 - (void)viewDidUnload
 {
+    [self setProfileImage:nil];
+    [self setLabelName:nil];
+    [self setLabelScreenName:nil];
+    [self setTextStatusText:nil];
+    [self setSwFollow:nil];
+    [self setTextDetail:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -63,7 +114,6 @@
     // Return the number of rows in the section.
     return 3;
 }
-*/
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -73,6 +123,10 @@
     // Configure the cell...
     
     return cell;
+}
+*/
+- (IBAction)followedChanged:(id)sender {
+    
 }
 
 /*

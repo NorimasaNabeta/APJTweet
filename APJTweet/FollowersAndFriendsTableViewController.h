@@ -17,6 +17,6 @@
 
 @property (strong, nonatomic) NSCache *friends;
 @property (strong, nonatomic) NSCache *followers;
-
+@property (strong, nonatomic) NSDictionary *ids;
 
 @end

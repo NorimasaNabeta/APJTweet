@@ -23,7 +23,23 @@
 
 @synthesize friends=_friends;
 @synthesize followers=_followers;
+@synthesize ids=_ids;
 
+// ids includes all followers and friends of all account in the device.
+-(void) setIds:(NSDictionary *)ids
+{
+    if(! [_ids isEqualToDictionary:ids]){
+        _ids = ids;
+    }
+}
+
+-(NSDictionary*) ids
+{
+    if (! _ids) {
+        _ids = [[NSDictionary alloc] init];
+    }
+    return _ids;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -106,34 +122,33 @@
     id followersList = [self.followers objectForKey:account.username];
     NSMutableSet *friendsSet = [[NSMutableSet alloc] initWithArray:nil];
     NSMutableSet *followersSet = [[NSMutableSet alloc] initWithArray:nil];
-    NSMutableSet *allSet = [[NSMutableSet alloc] initWithArray:nil];
+    NSMutableSet *allSet;
 
     int idx;
+    NSString* screenname=@"";
     for (idx = 0; idx< [friendsList count]; idx++) {
-        [friendsSet addObject:[[friendsList objectAtIndex:idx] objectForKey:@"screen_name"]];
-        [allSet addObject:[[friendsList objectAtIndex:idx] objectForKey:@"screen_name"]];
+        screenname = [[friendsList objectAtIndex:idx] objectForKey:@"screen_name"];
+        [friendsSet addObject:screenname];
     }
+    allSet = friendsSet;
     for (idx = 0; idx< [followersList count]; idx++) {
-        [followersSet addObject:[[followersList objectAtIndex:idx] objectForKey:@"screen_name"]];
-        [allSet addObject:[[followersList objectAtIndex:idx] objectForKey:@"screen_name"]];
+        screenname = [[followersList objectAtIndex:idx] objectForKey:@"screen_name"];
+        [followersSet addObject:screenname];
     }
+    [allSet unionSet:followersSet];
     
     // Configure the cell...
-    // id dict = [friendsList objectAtIndex:indexPath.row];
-    // NSString* screen_name= [dict objectForKey:@"screen_name"];
-
     NSArray *all = [allSet allObjects];
-    NSString* screen_name= [all objectAtIndex:indexPath.row];
-    // name = [user objectForKey:@"name"];
-    
-    NSString* flag=@"";
+    NSString *screen_name= [all objectAtIndex:indexPath.row];
+    NSString *name = [[self.ids objectForKey:screen_name] objectForKey:@"name"];
+    NSString *flag=[NSString stringWithFormat:@"@%@ ", screen_name];
     if( [friendsSet containsObject:screen_name]){
         flag=[flag stringByAppendingString:@"[FRIEND] "];
     }
     if( [followersSet containsObject:screen_name]){
         flag=[flag stringByAppendingString:@"[FOLLOWER] "];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", screen_name];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", name];
     cell.detailTextLabel.text = flag;
     
     id appDelegate = (id)[[UIApplication sharedApplication] delegate];
@@ -242,6 +257,16 @@
                 // NSLog(@"[%@ %@] received %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), result);
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [self.friends setObject:result forKey:account.username];
+                    NSMutableDictionary *dict = [self.ids mutableCopy];
+                    for (int idx = 0; idx< [result count]; idx++) {
+                        NSString* screen_name = [[result objectAtIndex:idx] objectForKey:@"screen_name"];
+                        if (! [[dict allKeys] containsObject:screen_name]) {
+                            [dict setObject:[result objectAtIndex:idx] forKey:screen_name];
+                        } else {
+                            NSLog(@"Skip: %@", screen_name);
+                        }
+                    }
+                    self.ids = dict;
                     [self.tableView reloadData];
                 });
             }
@@ -263,6 +288,16 @@
                 NSLog(@"[4] Followers: %@ %d", account.username, [result count]);
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [self.followers setObject:result forKey:account.username];
+                    NSMutableDictionary *dict = [self.ids mutableCopy];
+                    for (int idx = 0; idx< [result count]; idx++) {
+                        NSString* screen_name = [[result objectAtIndex:idx] objectForKey:@"screen_name"];
+                        if (! [[dict allKeys] containsObject:screen_name]) {
+                            [dict setObject:[result objectAtIndex:idx] forKey:screen_name];
+                        } else {
+                            NSLog(@"Skip: %@", screen_name);
+                        }
+                    }
+                    self.ids = dict;
                     [self.tableView reloadData];
                 });
             }
@@ -349,9 +384,11 @@
 // Show Profile
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    NSLog(@"%@:indexPath %@", segue.identifier, indexPath);
     if ([segue.identifier isEqualToString:@"Profile Show"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSLog(@"%@:indexPath %@", segue.identifier, indexPath);
+        // NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        // NSLog(@"%@:indexPath %@", segue.identifier, indexPath);
         ACAccount* account = [self.accounts objectAtIndex:indexPath.section];
         [segue.destinationViewController setAccount:account];
 
@@ -366,8 +403,9 @@
             [allSet addObject:[[followersList objectAtIndex:idx] objectForKey:@"screen_name"]];
         }
         NSArray *all = [allSet allObjects];
-        
-        [segue.destinationViewController setScreenname:[all objectAtIndex:indexPath.row]];
+        NSString *screen_name = [all objectAtIndex:indexPath.row];
+        NSLog(@"prepare:%@", screen_name);
+        [segue.destinationViewController setUserinfo:[self.ids objectForKey:screen_name]];
     }
 }
 
