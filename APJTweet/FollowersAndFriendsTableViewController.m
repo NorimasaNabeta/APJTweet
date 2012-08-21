@@ -10,6 +10,7 @@
 #import "TwitterAPI.h"
 #import "AppDelegate.h"
 
+#import "UserProfileViewController.h"
 
 @interface FollowersAndFriendsTableViewController ()
 - (void)fetchData;
@@ -118,9 +119,13 @@
     }
     
     // Configure the cell...
-    id dict = [friendsList objectAtIndex:indexPath.row];
-    // NSArray *all = [allSet allObjects];
-    NSString* screen_name= [dict objectForKey:@"screen_name"];
+    // id dict = [friendsList objectAtIndex:indexPath.row];
+    // NSString* screen_name= [dict objectForKey:@"screen_name"];
+
+    NSArray *all = [allSet allObjects];
+    NSString* screen_name= [all objectAtIndex:indexPath.row];
+    // name = [user objectForKey:@"name"];
+    
     NSString* flag=@"";
     if( [friendsSet containsObject:screen_name]){
         flag=[flag stringByAppendingString:@"[FRIEND] "];
@@ -128,8 +133,7 @@
     if( [followersSet containsObject:screen_name]){
         flag=[flag stringByAppendingString:@"[FOLLOWER] "];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ @%@",
-                           screen_name, [dict objectForKey:@"name"]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", screen_name];
     cell.detailTextLabel.text = flag;
     
     id appDelegate = (id)[[UIApplication sharedApplication] delegate];
@@ -342,5 +346,29 @@
     [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
 }
 
+// Show Profile
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Profile Show"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        NSLog(@"%@:indexPath %@", segue.identifier, indexPath);
+        ACAccount* account = [self.accounts objectAtIndex:indexPath.section];
+        [segue.destinationViewController setAccount:account];
+
+        id friendsList = [self.friends objectForKey:account.username];
+        id followersList = [self.followers objectForKey:account.username];
+        NSMutableSet *allSet = [[NSMutableSet alloc] initWithArray:nil];
+        int idx;
+        for (idx = 0; idx< [friendsList count]; idx++) {
+            [allSet addObject:[[friendsList objectAtIndex:idx] objectForKey:@"screen_name"]];
+        }
+        for (idx = 0; idx< [followersList count]; idx++) {
+            [allSet addObject:[[followersList objectAtIndex:idx] objectForKey:@"screen_name"]];
+        }
+        NSArray *all = [allSet allObjects];
+        
+        [segue.destinationViewController setScreenname:[all objectAtIndex:indexPath.row]];
+    }
+}
 
 @end
